@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="לזוז מבפנים, סדנאות ציור אינטואיטיבי עם מיקה נדב">
+<meta name="theme-color" content="#FAF6F0">
+<title>לזוז מבפנים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@500;700&family=Varela+Round&display=swap">
+<style>
+/* Layout: one still screen after bonbon. Two tilted video cards, logo laid over them, plus top-left opening an olive sheet with the explanation, three workshops and galleries. Name and phone bottom-left, contact icons bottom-right, on both screens. Single warm-light look by choice. */
+:root{
+  --paper:#FAF6F0; --cream:#EDE1D1; --tan:#CCB89D; --olive:#8A9468;
+  --brown:#7F6044; --espresso:#412F25; --hot:#D9541F; --oncolor:#FFF6EC;
+  --f-head:"Varela Round","Arial Rounded MT Bold",Arial,sans-serif;
+  --f-body:"Assistant","Arial Hebrew",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--paper);color:var(--espresso);font-family:var(--f-body);font-weight:500;direction:rtl;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+h2,h3{font-family:var(--f-head);font-weight:400;margin:0;line-height:1.2;text-wrap:balance}
+p{margin:0}
+
+/* the still screen */
+.stage{position:relative;height:100%;display:grid;place-items:center;padding-inline:16px}
+.cards{position:relative;width:min(760px,78vw);aspect-ratio:760/640;max-height:76vh;animation:settle 1.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes settle{from{transform:rotate(6deg) scale(.94);opacity:.4}to{transform:none;opacity:1}}
+.card{position:absolute;top:0;width:50%;height:100%;overflow:hidden;background:var(--cream);box-shadow:0 18px 40px -24px rgba(65,47,37,.55)}
+.card.a{right:2%;transform:rotate(-5deg) translateY(1%)}
+.card.b{left:2%;transform:rotate(-8deg) translateY(4%)}
+.card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.mark{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;background:radial-gradient(closest-side,rgba(65,47,37,.6),rgba(65,47,37,0) 78%)}
+.mark img{width:clamp(227px,29vw,333px);height:auto;filter:drop-shadow(0 1px 2px rgba(40,25,15,.7)) drop-shadow(0 2px 18px rgba(40,25,15,.6))}
+.mark-below{display:none}
+
+.plus{position:fixed;top:calc(28px + env(safe-area-inset-top,0px));right:clamp(18px,4vw,56px);width:clamp(56px,7vw,96px);aspect-ratio:1;z-index:4;color:var(--espresso);transition:transform .45s cubic-bezier(.3,.7,.2,1)}
+.plus svg{width:100%;height:100%;stroke:currentColor;stroke-width:5;fill:none}
+.plus:hover{transform:rotate(90deg)}
+
+/* bottom bar: name and phone left, contact icons right (same on both screens) */
+.bar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 clamp(18px,4vw,56px) calc(18px + env(safe-area-inset-bottom,0px))}
+.bar.main{position:fixed;left:0;right:0;bottom:0;z-index:3;pointer-events:none}
+.bar.main>*{pointer-events:auto}
+.who{font-size:15px;line-height:1.5;max-width:26em}
+.who a{color:inherit;text-decoration:none}
+.icons{display:flex;gap:10px}
+.ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--espresso);transition:background .2s,transform .2s}
+.ic:hover{background:var(--hot);transform:translateY(-2px)}
+.ic svg{width:21px;height:21px;fill:var(--paper)}
+
+/* the olive sheet */
+.sheet{position:fixed;inset:0;z-index:10;background:var(--olive);color:var(--oncolor);display:flex;flex-direction:column;clip-path:circle(0% at 92% 8%);visibility:hidden;transition:clip-path .7s cubic-bezier(.6,0,.2,1),visibility 0s .7s}
+.sheet.open{clip-path:circle(150% at 92% 8%);visibility:visible;transition:clip-path .7s cubic-bezier(.6,0,.2,1)}
+.scroll{flex:1;min-height:0;overflow-y:auto}
+.sheet.wopen .in{padding-bottom:60vh}
+.in{max-width:900px;margin-inline:auto;padding:calc(32px + env(safe-area-inset-top,0px)) 20px 36px;display:grid;gap:clamp(34px,6vh,56px);align-content:start}
+.sheet header{display:flex;justify-content:center;position:relative}
+.sheet header img{width:clamp(150px,18vw,210px);height:auto}
+.close{position:absolute;right:0;top:0;width:clamp(44px,5vw,64px);aspect-ratio:1;color:var(--oncolor)}
+#sheet .close{position:fixed;top:calc(28px + env(safe-area-inset-top,0px));right:clamp(18px,4vw,56px);left:auto;z-index:2}
+.close svg{width:100%;height:100%;stroke:currentColor;stroke-width:5;fill:none}
+.lead{text-align:center;max-width:38em;margin-inline:auto;display:grid;gap:18px}
+.lead h2{font-size:clamp(34px,5.2vw,56px)}
+.lead p{font-size:clamp(19px,2vw,23px);line-height:1.75}
+
+.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.wbtn{background:var(--espresso);color:var(--oncolor);border:2px solid var(--espresso);border-radius:999px;padding:12px 24px;font-family:var(--f-head);font-size:clamp(17px,1.8vw,20px);transition:background .2s,color .2s}
+.wbtn:hover,.wbtn[aria-expanded="true"]{background:var(--cream);color:var(--espresso)}
+
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s ease}
+.panel.on{grid-template-rows:1fr}
+.panel>div{overflow:hidden;min-height:0}
+.ws{display:grid;gap:22px;padding-top:4px}
+.ws h3{font-size:clamp(28px,4vw,40px);color:#5d2510}
+.ws p{font-size:clamp(18px,1.9vw,20px);line-height:1.75;max-width:60ch}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 20px;margin:0;font-size:18px}
+.facts dt{color:#5d2510}
+.facts dd{margin:0;font-weight:700}
+
+.gallery{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;padding-block:12px 16px;margin-inline:-20px;padding-inline:20px;scrollbar-color:var(--oncolor) transparent}
+.g{position:relative;flex:none;--gh:clamp(230px,34vw,330px);height:var(--gh);overflow:hidden;scroll-snap-align:start;background:var(--cream)}
+.g:nth-child(odd){transform:rotate(-1.6deg)}
+.g:nth-child(even){transform:rotate(1.6deg) translateY(6px)}
+.g img,.g video{display:block;height:100%;width:auto;max-width:none}
+video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+video::-webkit-media-controls{display:none!important}
+.g video{width:calc(var(--gh) * 406 / 720);object-fit:cover}
+.g .play{position:absolute;inset:0;display:grid;place-items:center;color:var(--oncolor);background:linear-gradient(to top,rgba(40,25,15,.35),rgba(40,25,15,0) 55%)}
+.g .play span{width:56px;height:56px;border-radius:50%;background:rgba(65,47,37,.72);display:grid;place-items:center}
+.g .play svg{width:22px;height:22px;fill:currentColor;margin-inline-start:-3px}
+.g.playing .play{opacity:0;transition:opacity .2s}
+.g.playing .play:focus-visible{opacity:1}
+
+.sheet .bar{flex:none;padding-top:14px;border-top:1px solid rgba(255,246,236,.35)}
+.sheet .ic{background:var(--oncolor)}
+.sheet .ic svg{fill:var(--olive)}
+.sheet .ic:hover{background:var(--espresso)}
+.sheet .ic:hover svg{fill:var(--oncolor)}
+
+.about-btn{background:var(--espresso);color:var(--paper);border:2px solid var(--espresso);border-radius:999px;padding:9px 20px;font-family:var(--f-head);font-size:15px;line-height:1;align-self:center;transition:background .2s,color .2s}
+.about-btn:hover{background:var(--hot);border-color:var(--hot)}
+.sheet.about .in{min-height:100%;align-content:center}
+.about-photo{display:block;width:clamp(170px,38vw,250px);height:auto;margin-inline:auto;border-radius:6px;box-shadow:0 18px 40px -24px rgba(65,47,37,.6)}
+.sheet.about .lead h2{color:#5d2510}
+#sheet .lead h2{color:var(--espresso)}
+#sheet .lead h2{white-space:nowrap}
+.sheet.about header{min-height:clamp(44px,5vw,64px)}
+
+@media (max-width:700px){
+  html,body{height:auto}
+  body{overflow-y:auto}
+  .stage{height:100svh}
+  .plus{position:relative;top:auto;right:auto;display:block;margin:0 auto calc(104px + env(safe-area-inset-bottom,0px))}
+  .sheet{clip-path:circle(0% at 50% 92%)}
+  .sheet.open{clip-path:circle(150% at 50% 92%)}
+  .stage{align-content:center;gap:22px;padding-top:calc(86px + env(safe-area-inset-top,0px));padding-bottom:104px}
+  .cards{--h:min(37vh,82vw);--w:calc(var(--h) * 9 / 16);height:calc(var(--h) * 1.5);width:calc(var(--w) * 1.75);aspect-ratio:auto;max-height:none}
+  .card{width:var(--w);height:var(--h)}
+  .card.a{right:0;left:auto;top:0;transform:rotate(-6deg)}
+  .card.b{left:0;right:auto;top:calc(var(--h) * .5);transform:rotate(-9deg);z-index:1}
+  .mark{z-index:2}
+  .mark img{width:min(165px,44vw)}
+  .mark-below{display:none}
+  .plus:hover{transform:none}
+  .who{font-size:13px;max-width:15em}
+  .close{width:44px}
+  #sheet .lead h2{font-size:min(34px,7.6vw)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cards{animation:none}
+  .sheet,.sheet.open,.panel,.plus{transition:none}
+}
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="cards" aria-hidden="true">
+    <div class="card a"><video autoplay muted loop playsinline preload="auto" poster="media/open-1-poster.jpg" src="media/open-1.mp4"></video></div>
+    <div class="card b"><video autoplay muted loop playsinline preload="auto" poster="media/open-2-poster.jpg" src="media/open-2.mp4"></video></div>
+    <div class="mark"><img src="assets/logo-cream.png" alt=""></div>
+  </div>
+  <img class="mark-below" src="assets/logo-color.png" alt="לזוז מבפנים, מיקה נדב">
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">לזוז מבפנים, סדנאות ציור אינטואיטיבי עם מיקה נדב</h1>
+</main>
+
+<button class="plus" id="plus" aria-label="מה זה ציור אינטואיטיבי" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 100 100"><path d="M50 2v96M2 50h96"/></svg></button>
+
+<div class="bar main">
+  <button class="about-btn" id="about-btn" aria-expanded="false" aria-controls="about">אודות</button>
+  <div class="icons">
+    <a class="ic wa" href="#" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+    <a class="ic" href="https://www.instagram.com/lazuz_mibefnim/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4ZM12 2c-2.7 0-3 0-4.1.1C4.2 2.2 2.2 4.2 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.1 3.7 2.1 5.7 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.7-.1 5.7-2.1 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-3.7-2.1-5.7-5.8-5.8C15 2 14.7 2 12 2Zm0 1.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1Z"/></svg></a>
+  </div>
+</div>
+
+<section class="sheet" id="sheet" aria-label="מה זה ציור אינטואיטיבי" aria-hidden="true">
+  <div class="scroll"><div class="in">
+    <header>
+      <img src="assets/logo-bordeaux.png" alt="לזוז מבפנים, מיקה נדב">
+      <button class="close" id="close" aria-label="סגירה"><svg viewBox="0 0 100 100"><path d="M10 10l80 80M90 10l-80 80"/></svg></button>
+    </header>
+
+    <div class="lead">
+      <h2>מה זה ציור אינטואיטיבי</h2>
+      <p>בכל אחד מאיתנו יש אינטואיציה, תחושת בטן. ובדרך כלל אין לה הרבה מקום. כאן נותנים לה לצאת. מתמסרים לתהליך ויוצאים קלים יותר. המשחק עם הצבע והמכחול משחרר משהו בגוף ובראש, גם אם באמצע הדרך אי אפשר להסביר איך. נותנים לכם צבעים, אומרים לכם תפרעו ולרגע אתם שוב ילדים.</p>
+    </div>
+
+    <div class="btns">
+      <button class="wbtn" aria-expanded="false" aria-controls="p-own" data-p="p-own">כל אחד על הקנבס שלו</button>
+      <button class="wbtn" aria-expanded="false" aria-controls="p-one" data-p="p-one">כולם על בד אחד</button>
+      <button class="wbtn" aria-expanded="false" aria-controls="p-team" data-p="p-team">תהליך יצירתי לצוות</button>
+    </div>
+
+    <div class="panel" id="p-own"><div><div class="ws">
+      <h3>כל אחד על הקנבס שלו</h3>
+      <p>שחרור והפוגה שמאפשרים להשקיט את הראש, לפתוח את היצירתיות ואת הלב. לארגונים ולצוותים זו הפסקה אמיתית מהמסכים ומהשגרה הקבועה: רגע שמוציא את העובדים מהאוטומט, פותח מחשבה מחוץ לקופסה ופותח יצירתיות שנשארת איתם גם כשחוזרים לעבודה. זו חוויה אישית ובאותה נשימה מחברת. כולם יוצרים יחד, כל אחד מול הקנבס שלו.</p>
+      <dl class="facts"><dt>מתאים ל</dt><dd>ימי Offsites, ימי גיבוש, קבוצות חברים</dd><dt>כמה אנשים</dt><dd>עד 20 משתתפים</dd><dt>משך</dt><dd>שעה וחצי</dd></dl>
+      <div class="gallery" data-g="own"></div>
+    </div></div></div>
+
+    <div class="panel" id="p-one"><div><div class="ws">
+      <h3>כולם על בד אחד</h3>
+      <p>יצירה משותפת על קנבס גדול אחד. חוויה אינטימית וקרובה יותר: כל מגע מכחול משפיע ומושפע מהשכן והקבוצה. פה קורה קסם של חיבור, התקרבות ויצירה משותפת. בלי בעלות אישית על הציור, עם תוצאה אחת משותפת שכולם היו חלק ממנה.</p>
+      <dl class="facts"><dt>מתאים ל</dt><dd>מסיבות רווקות, ימי הולדת, מפגשי משפחה, Baby Blessing</dd><dt>כמה אנשים</dt><dd>מומלץ עד 10, אפשרי עד 15</dd><dt>משך</dt><dd>שעה וחצי</dd></dl>
+      <div class="gallery" data-g="one"></div>
+    </div></div></div>
+
+    <div class="panel" id="p-team"><div><div class="ws">
+      <h3>תהליך יצירתי לצוות</h3>
+      <p>סדרה של ארבעה מפגשים במשרד, שנבנית כתהליך הדרגתי ולא כאירוע חד פעמי. המטרה להכניס את ההפוגה לשגרה. מחוץ למחשב - מחוץ לקופסה. ככה ההקשבה לאינטואיציה לא נגמרת במפגש והופכת להרגל של הצוות.</p>
+      <dl class="facts"><dt>מתאים ל</dt><dd>צוותי הייטק, מחלקות, הנהלות, תוכניות רווחה</dd><dt>אורך</dt><dd>ארבעה מפגשים, שבועי או דו שבועי</dd></dl>
+      <div class="gallery" data-g="team"></div>
+    </div></div></div>
+  </div></div>
+
+  <div class="bar">
+    <div class="who">מיקה נדב · סדנאות ציור אינטואיטיבי · <a href="tel:0542405224">054-2405224</a></div>
+    <div class="icons">
+      <a class="ic wa" href="#" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+      <a class="ic" href="https://www.instagram.com/lazuz_mibefnim/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4ZM12 2c-2.7 0-3 0-4.1.1C4.2 2.2 2.2 4.2 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.1 3.7 2.1 5.7 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.7-.1 5.7-2.1 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-3.7-2.1-5.7-5.8-5.8C15 2 14.7 2 12 2Zm0 1.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1Z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sheet about" id="about" aria-label="אודות" aria-hidden="true">
+  <div class="scroll"><div class="in">
+    <header>
+      <button class="close" id="about-close" aria-label="סגירה"><svg viewBox="0 0 100 100"><path d="M10 10l80 80M90 10l-80 80"/></svg></button>
+    </header>
+    <img class="about-photo" src="media/about.jpg" alt="מיקה נדב" width="675" height="900">
+    <div class="lead">
+      <h2>אודות</h2>
+      <p>אני מיקה נדב, מדריכת טרילותרפיה וציור אינטואיטיבי. לומדת תואר שני בטיפול באמנות. חוויתי על עצמי איך אמנות מזיזה תהליכים אישיים, אז בחרתי להעביר את זה הלאה. אני מאמינה שהציור הוא דרך נוספת לתקשר עם עצמנו: משחררים את הראש ונותנים לרגש מקום.</p>
+    </div>
+  </div></div>
+</section>
+
+<script>
+(function(){
+  var wa="https://wa.me/972542405224?text="+encodeURIComponent("היי מיקה אשמח לשמוע על הסדנאות");
+  document.querySelectorAll(".wa").forEach(function(a){a.href=wa});
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // opening videos: still poster when motion is reduced
+  document.querySelectorAll(".card video").forEach(function(v){
+    if(reduce){v.removeAttribute("autoplay");v.pause()}
+    else{var p=v.play();if(p&&p.catch)p.catch(function(){})}
+  });
+  // some phones block autoplay until the first touch: retry quietly, no play button is ever shown
+  function kick(){if(reduce)return;document.querySelectorAll(".card video").forEach(function(v){if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){})}})}
+  ["touchstart","pointerdown","scroll","click"].forEach(function(t){window.addEventListener(t,kick,{once:true,passive:true})});
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)kick()});
+  document.querySelectorAll(".card video").forEach(function(v){v.addEventListener("canplay",kick)});
+
+  // plus opens the olive sheet
+  var plus=document.getElementById("plus"),sheet=document.getElementById("sheet"),close=document.getElementById("close");
+  function setOpen(on){
+    sheet.classList.toggle("open",on);sheet.setAttribute("aria-hidden",!on);plus.setAttribute("aria-expanded",on);
+    if(on){close.focus({preventScroll:true})}else{plus.focus({preventScroll:true});stopAll()}
+  }
+  plus.addEventListener("click",function(){setOpen(true)});
+  close.addEventListener("click",function(){setOpen(false)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&sheet.classList.contains("open"))setOpen(false)});
+
+  // about screen
+  var aboutBtn=document.getElementById("about-btn"),about=document.getElementById("about"),aboutClose=document.getElementById("about-close");
+  function setAbout(on){
+    about.classList.toggle("open",on);about.setAttribute("aria-hidden",!on);aboutBtn.setAttribute("aria-expanded",on);
+    if(on){aboutClose.focus({preventScroll:true})}else{aboutBtn.focus({preventScroll:true})}
+  }
+  aboutBtn.addEventListener("click",function(){setAbout(true)});
+  aboutClose.addEventListener("click",function(){setAbout(false)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&about.classList.contains("open"))setAbout(false)});
+
+  // galleries: [type, file, poster]; strongest picture first
+  var G={
+    own:[["i","friends-4"],["v","friends"],["i","friends-2"],["i","friends-5"],["i","friends-0"],["i","friends-1"],["i","friends-3"],["i","team-2"],["i","team-1"]],
+    one:[["i","one-canvas-final"],["v","one-7s"],["i","one-canvas-paints"],["v","one-6s"],["v","one-3s"]],
+    team:[["i","team-2"],["i","team-5"],["i","team-1"],["i","team-3"],["i","team-4"]]
+  };
+  var DIM={"friends-0":[1050,1400],"friends-1":[1050,1400],"friends-2":[1050,1400],"friends-3":[1050,1400],"friends-4":[1050,1400],"friends-5":[1050,1400],"one-canvas-final":[1050,1400],"one-canvas-paints":[1050,1400],"team-1":[1400,1050],"team-2":[1400,1050],"team-3":[1050,1400],"team-4":[1400,1050],"team-5":[1052,1400]};
+  var vids=[];
+  var PLAY='<svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg>';
+  document.querySelectorAll(".gallery").forEach(function(g){
+    G[g.dataset.g].forEach(function(it){
+      var d=document.createElement("div");d.className="g";
+      if(it[0]==="i"){
+        var im=document.createElement("img");im.src="media/"+it[1]+".jpg";im.alt="תמונה מהסדנה";if(DIM[it[1]]){im.width=DIM[it[1]][0];im.height=DIM[it[1]][1]}im.loading="lazy";im.decoding="async";d.appendChild(im);
+      }else{
+        var v=document.createElement("video");v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");v.setAttribute("muted","");v.preload="metadata";v.poster="media/"+it[1]+"-poster.jpg";v.src="media/"+it[1]+".mp4";d.appendChild(v);vids.push(v);
+      }
+      g.appendChild(d);
+    });
+  });
+  function stopAll(){sync()}
+  // galleries drift by themselves once they come into view; any touch or wheel hands control to the visitor
+  var scrollEl=document.querySelector("#sheet .scroll");
+  function startAuto(g,from){
+    g._st=1;g.style.scrollSnapType="none";
+    if(!from)g.scrollLeft=0;
+    var s0=g.scrollLeft;g.scrollLeft=-5;var dir=g.scrollLeft<0?-1:1;g.scrollLeft=s0;
+    var pos=from||0,last=null;
+    function step(ts){
+      if(g._st!==1)return;
+      if(last!==null)pos+=(ts-last)*0.045;
+      last=ts;
+      var max=g.scrollWidth-g.clientWidth;
+      if(pos>=max){
+        g._st=2;
+        g._t=setTimeout(function(){if(g._st!==2)return;g.scrollTo({left:0,behavior:"smooth"});g._t=setTimeout(function(){if(g._st===2)startAuto(g)},1100)},1200);
+        return;
+      }
+      g.scrollLeft=dir*pos;
+      window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
+  }
+  // a sideways swipe or wheel hands control to the visitor; it drifts on again after a few quiet seconds
+  function userTook(g){
+    if(!g._st)return;
+    clearTimeout(g._t);g._st=3;
+    g._t=setTimeout(function(){
+      if(g._st!==3)return;
+      var pn=g.closest(".panel");if(!pn.classList.contains("on")||!sheet.classList.contains("open"))return;
+      startAuto(g,Math.abs(g.scrollLeft));
+    },3500);
+  }
+  function syncGalleries(){
+    document.querySelectorAll(".gallery").forEach(function(g){
+      var pn=g.closest(".panel"),on=pn.classList.contains("on")&&sheet.classList.contains("open");
+      if(!on){if(g._st){clearTimeout(g._t);g._st=0;g.style.scrollSnapType="";g.scrollLeft=0}return}
+      if(g._st||reduce)return;
+      var r=g.getBoundingClientRect(),c=scrollEl.getBoundingClientRect();
+      if(r.height>0&&r.top<c.bottom-90&&r.bottom>c.top+90)startAuto(g);
+    });
+  }
+  document.querySelectorAll(".gallery").forEach(function(g){
+    var x0=0,y0=0;
+    g.addEventListener("touchstart",function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+    g.addEventListener("touchmove",function(e){var dx=Math.abs(e.touches[0].clientX-x0),dy=Math.abs(e.touches[0].clientY-y0);if(dx>8&&dx>dy)userTook(g)},{passive:true});
+    g.addEventListener("wheel",function(e){if(Math.abs(e.deltaX)>Math.abs(e.deltaY))userTook(g)},{passive:true});
+    g.addEventListener("pointerdown",function(e){if(e.pointerType==="mouse")userTook(g)},{passive:true});
+  });
+  function sync(){
+    syncGalleries();
+    vids.forEach(function(v){
+      var pn=v.closest(".panel"),gl=v.closest(".gallery");
+      var on=pn&&pn.classList.contains("on")&&sheet.classList.contains("open");
+      var r=v.getBoundingClientRect(),g=gl.getBoundingClientRect();
+      var vis=r.width>0&&r.right>g.left+10&&r.left<g.right-10;
+      if(on&&vis&&!reduce){if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){})}}
+      else if(!v.paused){v.pause()}
+    });
+  }
+  ["transitionend","scroll","click","touchend","resize"].forEach(function(t){document.addEventListener(t,function(){window.requestAnimationFrame(sync)},true)});
+  setTimeout(sync,700);
+
+  // workshop buttons, one open at a time
+  var btns=document.querySelectorAll(".wbtn");
+  btns.forEach(function(b){b.addEventListener("click",function(){
+    var open=b.getAttribute("aria-expanded")!=="true";
+    btns.forEach(function(o){o.setAttribute("aria-expanded","false");document.getElementById(o.dataset.p).classList.remove("on")});
+    stopAll();
+    if(open){b.setAttribute("aria-expanded","true");var pn=document.getElementById(b.dataset.p);pn.classList.add("on");var gl=pn.querySelector(".gallery");if(gl){gl.scrollLeft=0;setTimeout(function(){gl.scrollLeft=0},350)}sheet.classList.add("wopen");setTimeout(function(){var sc=document.querySelector("#sheet .scroll");var t=pn.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-84;sc.scrollTo({top:Math.max(0,t),behavior:reduce?"auto":"smooth"})},560)}else{sheet.classList.remove("wopen")}
+  })});
+})();
+</script>
+</body>
+</html>
